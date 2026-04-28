@@ -1,0 +1,10 @@
+[
+  {
+    "label": "debug Python (debugpy)",
+    "adapter": "Debugpy",
+    "request": "launch",
+    "program": "${file}",
+    "cwd": "${workspaceRoot}",
+    "args": []
+  }
+]

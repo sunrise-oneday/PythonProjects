@@ -3,7 +3,10 @@ import numpy as np
 from matplotlib import pyplot as plt
 
 # 1. 读取并处理图像
-img = cv2.imread('images/zutomayo.jpg', 0)
+img = cv2.imread("images/zutomayo.jpg", 0)
+if img is None:
+    print("无法读取图像")
+    exit()
 processed_array = (img // 2).astype(np.uint8)
 
 # 2. OpenCV 显示图像（非阻塞）
