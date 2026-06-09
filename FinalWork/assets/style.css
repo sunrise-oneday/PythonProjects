@@ -1,0 +1,57 @@
+/* 数字图像处理实验系统 — 全局样式 */
+
+/* 1. 居中限制最大宽度，大屏上内容不被过度拉伸 */
+.gradio-container {
+    max-width: 1280px !important;
+    margin: auto !important;
+    padding: 2rem !important;
+}
+
+/* 2. 图片容器：圆角阴影，hover 时阴影加深 */
+.image-wrapper {
+    border-radius: 16px !important;
+    overflow: hidden !important;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08),
+                0 4px 6px -2px rgba(0, 0, 0, 0.04) !important;
+    border: 1px solid #e2e8f0 !important;
+    transition: box-shadow 0.3s ease !important;
+}
+.image-wrapper:hover {
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+                0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
+}
+
+/* 3. 主按钮：hover 上浮 + 阴影加深 */
+.primary-btn {
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.025em !important;
+    box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.2) !important;
+}
+.primary-btn:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3) !important;
+}
+
+/* 4. Tab 导航栏：简约风格，选中项蓝色下划线 */
+.tabs > .tab-nav > button {
+    border: none !important;
+    font-weight: 500 !important;
+    color: #64748b !important;
+    transition: all 0.2s !important;
+    padding: 12px 20px !important;
+}
+.tabs > .tab-nav > button.selected {
+    color: #2563eb !important;
+    border-bottom: 2px solid #2563eb !important;
+    background: transparent !important;
+    font-weight: 600 !important;
+}
+.tabs > .tab-nav > button:hover {
+    color: #1e293b !important;
+}
+
+/* 5. 滑块主题色 */
+input[type="range"] {
+    accent-color: #2563eb !important;
+}
