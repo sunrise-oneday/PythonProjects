@@ -242,83 +242,12 @@ if __name__ == "__main__":
 
 ---
 
-## 八、UI 表现层设计（三大基石）
-
-### 8.1 自定义主题 — `utils/theme.py`
-
-基于 Gradio 4.x 的 `gr.themes.Soft()` 定制 **Soft-Blue** 专业配色方案：
-
-| 维度 | 取值 |
-|------|------|
-| 主色调 | `primary_hue="blue"` → `#2563eb` |
-| 次色调 | `secondary_hue="slate"`, `neutral_hue="slate"` |
-| 字体 | Inter（Google Font）+ fallback 系统无衬线 |
-| 背景 | `body_background_fill="#f8fafc"` |
-| 卡片 | 白底、无边框、`12px` 圆角、微阴影 |
-| 按钮 | 蓝色填充、hover 加深（`#1d4ed8`） |
-| 输入框 | `#f1f5f9` 浅灰底、`8px` 圆角、Slate 边框 |
-
-### 8.2 全局 CSS — `assets/style.css`
-
-处理 Gradio 主题无法覆盖的细节：
-
-```css
-/* 核心效果 */
-.gradio-container {
-    max-width: 1280px !important;  /* 大屏不拉伸 */
-    margin: auto;
-    padding: 2rem;
-}
-.image-wrapper {
-    border-radius: 16px;
-    box-shadow: 0 10px 15px -3px rgba(0,0,0,0.08);
-    transition: box-shadow 0.3s ease;
-}
-.image-wrapper:hover {
-    box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);
-}
-.primary-btn {
-    box-shadow: 0 4px 6px -1px rgba(37,99,235,0.2);
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-}
-.primary-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 15px -3px rgba(37,99,235,0.3);
-}
-```
-
-> **注意**：Tab 导航栏的 CSS 选择器需在实现阶段根据 Gradio 实际 DOM 结构微调，不同版本可能有差异。
-
-### 8.3 标准化布局生成器 — `utils/layout_helper.py`
-
-```python
-def create_standard_layout(tab_title: str, algo_choices: list) -> dict:
-```
-
-**保证 9 个 Tab 视觉统一**，返回组件集合供事件绑定：
-
-```
-┌─────────────────────────────────────────────┐
-│  ← 左栏（scale=1）    │  右栏（scale=1） →   │
-│  📥 输入与参数         │  📤 处理结果          │
-│  [图片上传·image-wrapper]│  [结果展示·image-wrapper]│
-│  ⚙️ 算法参数设置        │                      │
-│    ┌─ Accordion ──┐   │                      │
-│    │ 算法下拉框     │   │                      │
-│    │ 自动生成控件区  │   │                      │
-│    └───────────────┘   │                      │
-│  🔄 自动预览  [▶执行]  │                      │
-└─────────────────────────────────────────────┘
-```
-
-- 左栏：图片上传 + 算法选择 + 参数折叠面板（Accordion）+ 操作按钮
-- 右栏：处理结果展示
-- `scale=1:1` 等宽分栏，`min_width=450` 防止过窄
-- 自动应用 `image-wrapper` 和 `primary-btn` CSS 类
+> **UI 表现层设计（主题、CSS、布局生成器）已拆分到独立文档：**
+> [`2026-06-09-image-processing-system-ui-design.md`](./2026-06-09-image-processing-system-ui-design.md)
 
 ---
 
-## 九、依赖清单（requirements.txt）
+## 八、依赖清单（requirements.txt）
 
 ```
 opencv-python>=4.8.0
@@ -335,7 +264,7 @@ scipy>=1.10.0
 
 ---
 
-## 十、实施路线图
+## 九、实施路线图
 
 ### Phase 1：骨架搭建（预计 0.5 天）
 
@@ -367,7 +296,7 @@ scipy>=1.10.0
 
 ---
 
-## 十一、架构总览图
+## 十、架构总览图
 
 ```
 ┌──────────────────────────────────────────────────────────┐
@@ -390,7 +319,7 @@ scipy>=1.10.0
 
 ---
 
-## 十二、设计决策记录
+## 十一、设计决策记录
 
 | # | 决策 | 备选 | 结论理由 |
 |---|------|------|----------|
@@ -402,7 +331,6 @@ scipy>=1.10.0
 | 6 | io_helper 统一转换 | 各 Tab 各自转换 | 避免 BGR/RGB 混乱 |
 | 7 | rembg 允许 4 通道输出 | 强制转 3 通道 | 保留透明背景，不丢失信息 |
 | 8 | 自动预览 Checkbox 开关 | 全量绑定 change | 防止复杂算法卡死 Gradio |
-| 9 | 自定义 Soft-Blue 主题 | Gradio 默认主题 | 视觉统一与专业感，匹配图像处理场景 |
-| 10 | layout_helper 标准化布局 | 各 Tab 各自写 UI | 确保 9 个 Tab 结构一致，切换无跳跃感 |
-| 11 | Accordion 折叠参数 | 所有参数全展开 | 避免满屏滑块造成视觉混乱 |
-| 12 | CSS 注入按钮上浮动效 | 无动效 | 提供物理反馈，提升交互质感 |
+
+> UI 表现层相关决策（主题、布局生成器、CSS、Accordion 等）见独立文档：
+> [`2026-06-09-image-processing-system-ui-design.md`](./2026-06-09-image-processing-system-ui-design.md)
